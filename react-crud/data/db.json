@@ -1,0 +1,20 @@
+{
+    "products": [
+      {
+        "id": 1,
+        "name": "Fone de Ouvido",
+        "price": 59.9
+      },
+      {
+        "id": 2,
+        "name": "Teclado",
+        "price": 90
+      },
+      {
+        "id": 3,
+        "name": "Mouse",
+        "price": 29.9
+      }
+     
+    ]
+  }
