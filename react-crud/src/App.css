@@ -40,3 +40,58 @@
 .read-the-docs {
   color: #888;
 }
+
+.tbl__geral{
+  background: grey;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.tbl__head{
+  background: white;
+  color: black;
+}
+
+.tbl__head th{
+  padding: 15px;
+  border: none;
+  border: 2px solid ;
+}
+
+.tbl__body td{
+  border: 1px solid white;
+  padding: 10px;
+}
+  
+.tbl__body td button:first-child{
+  margin-right: 10px;
+}
+
+.add-product{
+  border-top: 1px solid #000;
+
+}
+
+form{
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+form label{
+  font-size: 20px;
+}
+
+form input {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+form button{
+  margin-top: 10px;
+}
