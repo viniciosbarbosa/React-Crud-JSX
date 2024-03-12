@@ -9,9 +9,9 @@ function App() {
 
   const url = "http://localhost:3000/products"
 
-  const {data} = useApi(url)
+  const {data , httpRequestType} = useApi(url)
   const [nameProduct , setNameProduct] = useState(null)
-  const [princeProduct , setPrinceProduct] = useState(null)
+  const [priceProduct , setPriceProduct] = useState(null)
 
   const deleteProduct = (id) =>{
     console.log(id)
@@ -26,10 +26,13 @@ function App() {
 
     const params = {
       name:nameProduct,
-      prince:princeProduct
+      price:parseFloat(priceProduct)
     }
 
-    console.log(params)
+    httpRequestType(params , "POST")
+
+    setNameProduct("")
+    setPriceProduct("")
   }
 
   return (
@@ -69,9 +72,9 @@ function App() {
           </label>
 
           <label>Price
-            <input type="text" value={princeProduct} 
+            <input type="number" value={priceProduct} 
             name='price' 
-            onChange={(e)=> setPrinceProduct(e.target.value)} />
+            onChange={(e)=> setPriceProduct(e.target.value)} />
           </label>
 
           <button type="submit" onClick={postUpdateProduct}>Click here</button>

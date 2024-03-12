@@ -2,6 +2,23 @@ import { useState , useEffect} from "react";
 
 export const useApi = (url) =>{
     const [data , setData] = useState(null)
+    const [config , setConfig] = useState(null)
+    const [method , setMethod] = useState(null)
+    const [callFetch , setCallFetch ] = useState(null)
+
+    const httpRequestType = (data , method) =>{
+        if(method == "POST"){
+            setConfig({
+                method,
+                headers:{
+                    "Content-type" : "application/json"
+                },
+                body:JSON.stringify(data)
+            })
+            setMethod(method)
+        }
+
+    }
 
     useEffect(() =>{
 
@@ -10,7 +27,6 @@ export const useApi = (url) =>{
             try {
                 const response = await fetch(url)
                 const jsonResponse = await response.json()
-                console.log(jsonResponse)
                 setData(jsonResponse)
                 
             } catch (error) {
@@ -20,7 +36,24 @@ export const useApi = (url) =>{
 
         fetchData()
 
-    }, [url])
+    }, [url , callFetch])
 
-    return {data}
+    useEffect(()=> {
+        const httpRequestPost = async() =>{
+            let fetchOptions = [url , config]
+
+            if(method === "POST"){
+                const response = await fetch(... fetchOptions)
+                const jsonResponse = await response.json()
+
+                setCallFetch(jsonResponse)
+            }
+        }
+        httpRequestPost()
+
+    }, [config , method , url])
+
+
+
+    return {data , httpRequestType}
 }

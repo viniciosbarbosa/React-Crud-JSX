@@ -1,20 +1,29 @@
 {
-    "products": [
-      {
-        "id": 1,
-        "name": "Fone de Ouvido",
-        "price": 59.9
-      },
-      {
-        "id": 2,
-        "name": "Teclado",
-        "price": 90
-      },
-      {
-        "id": 3,
-        "name": "Mouse",
-        "price": 29.9
-      }
-     
-    ]
-  }
+  "products": [
+    {
+      "id": "1",
+      "name": "Fone de Ouvido",
+      "price": 59.9
+    },
+    {
+      "id": "2",
+      "name": "Teclado",
+      "price": 90
+    },
+    {
+      "id": "3",
+      "name": "Mouse",
+      "price": 29.9
+    },
+    {
+      "id": "5b51",
+      "name": "Iphone 11",
+      "price": 1000
+    },
+    {
+      "id": "4a81",
+      "name": "Iphone 11",
+      "price": 1000
+    }
+  ]
+}
