@@ -10,7 +10,7 @@ export const useApi = (url) =>{
 
     const [attForm , setAttForm] = useState(null)
 
-    const httpRequestType = (data , method) =>{
+    const httpRequestType = (data , method , id) =>{
         if(method == "POST"){
             setConfig({
                 method,
@@ -42,6 +42,7 @@ export const useApi = (url) =>{
                 },
                 body:JSON.stringify(data)
             })
+            setParams(data)
             setMethod(method)
         }
 
@@ -106,10 +107,9 @@ export const useApi = (url) =>{
                 setAttForm(jsonResponse)
             }
 
-            
-
+        
             if(method === "PUT"){
-                const response = await fetch(... fetchOptions)
+                const response = await fetch(`${url}/${params.id}` , config);
                 const jsonResponse = await response.json()
 
                 setCallFetch(jsonResponse)

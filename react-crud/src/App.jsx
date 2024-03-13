@@ -36,13 +36,25 @@ function App() {
   const postUpdateProduct = async (e) => {
     e.preventDefault()
 
-   
+    
+    if(idItemTbl){
+      const params = {
+        id:idItemTbl,
+        name:nameProduct,
+        price:parseFloat(priceProduct)
+      }
+      httpRequestType(params , "PUT" , idItemTbl)
+    }else{
       const params = {
         name:nameProduct,
         price:parseFloat(priceProduct)
       }
       httpRequestType(params , "POST")
+    }
+
+     
     
+      
     
 
     setNameProduct("")
