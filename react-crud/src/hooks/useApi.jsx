@@ -6,6 +6,10 @@ export const useApi = (url) =>{
     const [method , setMethod] = useState(null)
     const [callFetch , setCallFetch ] = useState(null)
 
+    const [params , setParams] = useState(null)
+
+    const [attForm , setAttForm] = useState(null)
+
     const httpRequestType = (data , method) =>{
         if(method == "POST"){
             setConfig({
@@ -18,6 +22,42 @@ export const useApi = (url) =>{
             setMethod(method)
         }
 
+        else if(method == "DELETE"){
+            setConfig({
+                method,
+                headers:{
+                    "Content-type" : "application/json"
+                },
+                body:JSON.stringify(data)
+            })
+            setParams(data)
+            setMethod(method)
+        }
+
+        else if(method == "PUT"){
+            setConfig({
+                method,
+                headers:{
+                    "Content-type" : "application/json"
+                },
+                body:JSON.stringify(data)
+            })
+            setMethod(method)
+        }
+
+        else if(method == "GET"){
+            setConfig({
+                method,
+                headers:{
+                    "Content-type" : "application/json"
+                },
+                body:JSON.stringify(data)
+            })
+            setParams(data)
+            setMethod(method)
+        }
+       
+
     }
 
     useEffect(() =>{
@@ -27,6 +67,7 @@ export const useApi = (url) =>{
             try {
                 const response = await fetch(url)
                 const jsonResponse = await response.json()
+                console.log(jsonResponse)
                 setData(jsonResponse)
                 
             } catch (error) {
@@ -40,14 +81,43 @@ export const useApi = (url) =>{
 
     useEffect(()=> {
         const httpRequestPost = async() =>{
-            let fetchOptions = [url , config]
+            let fetchOptions ;
 
             if(method === "POST"){
+                let fetchOptions = [url , config]
                 const response = await fetch(... fetchOptions)
                 const jsonResponse = await response.json()
 
                 setCallFetch(jsonResponse)
             }
+
+            if(method === "DELETE"){
+                const response = await fetch(`${url}/${params}`, config);
+                const jsonResponse = await response.json()
+
+                setCallFetch(jsonResponse)
+            }
+
+            if(method === "GET"){
+                const response = await fetch(`${url}/${params}`);
+
+                const jsonResponse = await response.json()
+
+                setAttForm(jsonResponse)
+            }
+
+            
+
+            if(method === "PUT"){
+                const response = await fetch(... fetchOptions)
+                const jsonResponse = await response.json()
+
+                setCallFetch(jsonResponse)
+            }
+
+        
+
+
         }
         httpRequestPost()
 
@@ -55,5 +125,5 @@ export const useApi = (url) =>{
 
 
 
-    return {data , httpRequestType}
+    return {data , httpRequestType , attForm}
 }

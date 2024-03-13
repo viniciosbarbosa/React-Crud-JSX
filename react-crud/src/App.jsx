@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { useApi } from './hooks/useApi'
@@ -7,29 +7,43 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
 
-  const url = "http://localhost:3000/products"
+  const [url , setUrl] = useState("http://localhost:3000/products")
 
-  const {data , httpRequestType} = useApi(url)
+  const {data , httpRequestType , attForm} = useApi(url)
   const [nameProduct , setNameProduct] = useState(null)
   const [priceProduct , setPriceProduct] = useState(null)
 
+  const [idItemTbl , setIdItemTbl] = useState(null)
+
   const deleteProduct = (id) =>{
-    console.log(id)
+    console.log(id);
+    httpRequestType(id , "DELETE")
   }
 
-  const updateProduct = (id) =>{
+  const getProductId = (id) =>{
     console.log(id)
+    httpRequestType(id , "GET")   
   }
+
+  useEffect(() => {
+    if (attForm) {
+        setNameProduct(attForm.name);
+        setPriceProduct(attForm.price);
+        setIdItemTbl(attForm.id)
+    }
+}, [attForm]);
 
   const postUpdateProduct = async (e) => {
     e.preventDefault()
 
-    const params = {
-      name:nameProduct,
-      price:parseFloat(priceProduct)
-    }
-
-    httpRequestType(params , "POST")
+   
+      const params = {
+        name:nameProduct,
+        price:parseFloat(priceProduct)
+      }
+      httpRequestType(params , "POST")
+    
+    
 
     setNameProduct("")
     setPriceProduct("")
@@ -52,7 +66,7 @@ function App() {
               <td>{item.name}</td>
               <td>{item.price}</td>
               <td>
-                <button onClick={() => updateProduct(item.id)}>Editar</button>
+                <button onClick={() => getProductId(item.id)}>Editar</button>
                 <button onClick={() => deleteProduct(item.id)}>Excluir</button>
               </td>
            
