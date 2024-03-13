@@ -91,19 +91,25 @@ function App() {
     
       <div className='add_product'>
         <form onSubmit={postUpdateProduct}>
-          <label>Name Product
+          <label>Nome do produto
             <input type="text"  value={nameProduct} 
             name='name' 
             onChange={(e)=> setNameProduct(e.target.value)} />
           </label>
 
-          <label>Price
+          <label>Preço
             <input type="number" value={priceProduct} 
             name='price' 
             onChange={(e)=> setPriceProduct(e.target.value)} />
           </label>
 
-          <button type="submit" onClick={postUpdateProduct}>Click here</button>
+          {!nameProduct || !priceProduct ? (
+          <button type="submit" disabled>Preencha o Form</button>
+            ) : (
+          <button type="submit" onClick={postUpdateProduct}>Clique aqui</button>
+          )}
+
+         
         </form>
       </div>
       

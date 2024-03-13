@@ -80,48 +80,41 @@ export const useApi = (url) =>{
 
     }, [url , callFetch])
 
-    useEffect(()=> {
-        const httpRequestPost = async() =>{
-            let fetchOptions ;
-
-            if(method === "POST"){
-                let fetchOptions = [url , config]
-                const response = await fetch(... fetchOptions)
-                const jsonResponse = await response.json()
-
-                setCallFetch(jsonResponse)
+    useEffect(() => {
+        const httpRequestPost = async () => {
+            try {
+                if (method === "POST") {
+                    const response = await fetch(url, config);
+                    const jsonResponse = await response.json();
+                    setCallFetch(jsonResponse);
+                }
+    
+                if (method === "DELETE") {
+                    const response = await fetch(`${url}/${params}`, config);
+                    const jsonResponse = await response.json();
+                    setCallFetch(jsonResponse);
+                }
+    
+                if (method === "GET") {
+                    const response = await fetch(`${url}/${params}`);
+                    const jsonResponse = await response.json();
+                    setAttForm(jsonResponse);
+                }
+    
+                if (method === "PUT") {
+                    const response = await fetch(`${url}/${params.id}`, config);
+                    const jsonResponse = await response.json();
+                    setCallFetch(jsonResponse);
+                }
+            } catch (error) {
+                console.error('Erro ao fazer solicitação:', error);
+                // Lidar com o erro conforme necessário
             }
-
-            if(method === "DELETE"){
-                const response = await fetch(`${url}/${params}`, config);
-                const jsonResponse = await response.json()
-
-                setCallFetch(jsonResponse)
-            }
-
-            if(method === "GET"){
-                const response = await fetch(`${url}/${params}`);
-
-                const jsonResponse = await response.json()
-
-                setAttForm(jsonResponse)
-            }
-
-        
-            if(method === "PUT"){
-                const response = await fetch(`${url}/${params.id}` , config);
-                const jsonResponse = await response.json()
-
-                setCallFetch(jsonResponse)
-            }
-
-        
-
-
-        }
-        httpRequestPost()
-
-    }, [config , method , url])
+        };
+    
+        httpRequestPost();
+    }, [config, method, params, url]);
+    
 
 
 
